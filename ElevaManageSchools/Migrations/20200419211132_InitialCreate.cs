@@ -12,8 +12,9 @@ namespace ElevaManageSchools.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,8 +26,9 @@ namespace ElevaManageSchools.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    SchoolId = table.Column<Guid>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    SchoolId = table.Column<Guid>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -8,7 +8,7 @@ namespace ElevaManageSchools.Services
 {
     public interface IClassService
     {
-        IEnumerable<ClassResponse> Get();
+        Task<IEnumerable<ClassResponse>> Get();
         Task<ClassResponse> Create(ClassRequest _class);
     }
 }

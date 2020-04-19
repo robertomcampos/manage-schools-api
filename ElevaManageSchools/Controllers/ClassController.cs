@@ -10,9 +10,9 @@ namespace ElevaManageSchools.Controllers
     public class ClassController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get([FromServices]IClassService classService)
+        public async Task<IActionResult> Get([FromServices]IClassService classService)
         {
-            return Ok(classService.Get());
+            return Ok(await classService.Get());
         }
 
         [HttpPost]

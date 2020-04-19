@@ -25,7 +25,11 @@ namespace ElevaManageSchools.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("SchoolId")
@@ -45,9 +49,14 @@ namespace ElevaManageSchools.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -58,7 +67,7 @@ namespace ElevaManageSchools.Migrations
             modelBuilder.Entity("ElevaManageSchools.Entities.Class", b =>
                 {
                     b.HasOne("ElevaManageSchools.Entities.School", "School")
-                        .WithMany("Classes")
+                        .WithMany()
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
