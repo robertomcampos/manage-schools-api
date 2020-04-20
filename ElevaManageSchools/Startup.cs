@@ -49,7 +49,7 @@ namespace ElevaManageSchools
         {
             dataContext.Database.Migrate();
 
-            loggerFactory.AddFile("C://Logs/myapp-{Date}.txt");
+            loggerFactory.AddFile(Configuration.GetSection("Logging:FileDestination").Value);
 
             if (env.IsDevelopment())
             {
