@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ElevaManageSchools.Models
+﻿namespace ElevaManageSchools.Models
 {
     public class SchoolRequest
     {

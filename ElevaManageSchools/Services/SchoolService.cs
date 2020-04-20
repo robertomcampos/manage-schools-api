@@ -1,6 +1,7 @@
 ﻿using ElevaManageSchools.Entities;
 using ElevaManageSchools.Infrastructure;
 using ElevaManageSchools.Models;
+using ElevaManageSchools.Services.Paging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,14 @@ namespace ElevaManageSchools.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<SchoolResponse>> Get()
+        public async Task<PagedList<School>> Get(PagingParameters parameters)
         {
-            return await _context.Schools.OrderByDescending(x => x.CreatedDate).Select(x => new SchoolResponse
-            {
-                Address = x.Address,
-                Id = x.Id,
-                Name = x.Name,
-                CreatedDate = x.CreatedDate
-            }).ToListAsync();
+            return await _context.Schools.OrderByDescending(x => x.CreatedDate).PaginateAsync(parameters.Page, parameters.Limit);
+        }
+
+        public async Task<IEnumerable<School>> Get()
+        {
+            return await _context.Schools.OrderByDescending(x => x.CreatedDate).ToListAsync();
         }
 
         public async Task<SchoolResponse> Create(SchoolRequest request)

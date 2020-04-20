@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Net;
 
 namespace ElevaManageSchools.Infrastructure
@@ -25,11 +24,11 @@ namespace ElevaManageSchools.Infrastructure
                 case DatabaseException _:
                     context.Result = new UnprocessableEntityResult();
                     return;
+                case ArgumentNullException ae:
+                    context.Result = new ObjectResult(new ErrorInfo(ErrorCode.NotFound, $"Attribute: {ae.ParamName} is mandatory"));
+                    break;
                 default:
-                    context.Result = new ObjectResult(new NotMappedErrorInfo(context.Exception))
-                    {
-                        StatusCode = (int)HttpStatusCode.InternalServerError
-                    };
+                    context.Result = new ObjectResult(new ErrorInfo(ErrorCode.InternalError, $"Unexpected Error details: {context.Exception.Message}"));
                     break;
             }
         }

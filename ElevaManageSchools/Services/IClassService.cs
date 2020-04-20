@@ -1,14 +1,13 @@
-﻿using ElevaManageSchools.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ElevaManageSchools.Entities;
+using ElevaManageSchools.Models;
+using ElevaManageSchools.Services.Paging;
 using System.Threading.Tasks;
 
 namespace ElevaManageSchools.Services
 {
     public interface IClassService
     {
-        Task<IEnumerable<ClassResponse>> Get();
+        Task<PagedList<Class>> Get(PagingParameters parameters);
         Task<ClassResponse> Create(ClassRequest _class);
     }
 }

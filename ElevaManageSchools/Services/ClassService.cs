@@ -1,33 +1,29 @@
 ﻿using ElevaManageSchools.Entities;
 using ElevaManageSchools.Infrastructure;
 using ElevaManageSchools.Models;
-using Microsoft.EntityFrameworkCore;
+using ElevaManageSchools.Services.Paging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElevaManageSchools.Services
 {
     public class ClassService : IClassService
     {
         private readonly ApplicationContext _context;
+
         public ClassService(ApplicationContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<ClassResponse>> Get()
+        public async Task<PagedList<Class>> Get(PagingParameters parameters)
         {
-
-            return await _context.Classes.OrderByDescending(x => x.CreatedDate).Select(x => new ClassResponse
-            {
-                Id = x.Id,
-                Name = x.Name,
-                CreatedDate = x.CreatedDate,
-                School = x.School
-            }).ToListAsync();
-
+            return await _context.Classes
+                .Include(x => x.School)
+                .OrderByDescending(x => x.CreatedDate)
+                .PaginateAsync(parameters.Page, parameters.Limit);
         }
 
         public async Task<ClassResponse> Create(ClassRequest request)
